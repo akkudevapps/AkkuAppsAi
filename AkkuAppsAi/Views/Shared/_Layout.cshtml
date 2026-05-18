@@ -1,59 +1,277 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿﻿
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AkkuAppsAi</title>
-    
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/AkkuAppsAi.styles.css" asp-append-version="true" />
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/AkkuAppsAi.styles.css" asp-append-version="true" />
+
+    <!-- Global CSS variables for theme support -->
+    <style>
+            :root {
+                --bg: #09090f;
+                --bg2: #0f1019;
+                --panel: #0f1019;
+                --surf: #16161e;
+                --surf-h: #1c1c28;
+                --bdr: #252535;
+                --bdr-b: #32324a;
+                --txt: #ddddf5;
+                --txt2: #8888a5;
+                --txt3: #555568;
+                --acc: #5d7cf8;
+                --acc-h: #7090ff;
+                --acc-s: rgba(93,124,248,0.13);
+                --coin: #e89c35;
+                --err: #e0504e;
+                --ok: #1dbf7e;
+            }
+            [data-theme="light"] {
+                --bg: #eeeef8;
+                --bg2: #ffffff;
+                --panel: #ffffff;
+                --surf: #f4f4fb;
+                --surf-h: #eaeaf5;
+                --bdr: #d0d0e8;
+                --bdr-b: #b8b8d8;
+                --txt: #1a1a2e;
+                --txt2: #50507a;
+                --txt3: #9090a0;
+            }
+            body {
+                background: var(--bg);
+                color: var(--txt);
+                font-family: 'Segoe UI', 'DM Sans', system-ui, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+            /* Global navbar styles - modern dark/light aware */
+            .akku-navbar {
+                background: var(--panel);
+                border-bottom: 1px solid var(--bdr);
+                padding: 0.75rem 1.5rem;
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+            }
+            .akku-navbar .navbar-brand {
+                color: var(--txt);
+                font-weight: 700;
+                font-size: 1.25rem;
+                text-decoration: none;
+            }
+            .akku-navbar .navbar-brand:hover {
+                color: var(--acc);
+            }
+            .nav-btn {
+                background: transparent;
+                border: 1px solid var(--bdr);
+                color: var(--txt2);
+                padding: 6px 14px;
+                border-radius: 8px;
+                font-size: 0.85rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                margin-left: 8px;
+            }
+            .nav-btn:hover {
+                background: var(--surf);
+                border-color: var(--acc);
+                color: var(--acc);
+            }
+            .nav-link-custom {
+                color: var(--txt2);
+                text-decoration: none;
+                padding: 6px 12px;
+                border-radius: 6px;
+                transition: all 0.2s;
+            }
+            .nav-link-custom:hover {
+                color: var(--acc);
+                background: var(--surf);
+            }
+            .footer {
+                background: var(--panel);
+                border-top: 1px solid var(--bdr);
+                padding: 1.5rem;
+                text-align: center;
+                color: var(--txt3);
+                margin-top: 2rem;
+            }
+            .footer a {
+                color: var(--acc);
+                text-decoration: none;
+            }
+            .container-main {
+                min-height: calc(100vh - 140px);
+            }
+            /* Remove default Bootstrap white background */
+            .navbar-light .navbar-nav .nav-link {
+                color: var(--txt2);
+            }
+            .navbar-light .navbar-nav .nav-link:hover {
+                color: var(--acc);
+            }
+    </style>
+
     @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AkkuAppsAi</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <button id="langToggle" class="nav-btn">தமிழ்</button>
-                <button id="themeToggle" class="nav-btn"><i class="fas fa-moon"></i></button>
 
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <!-- Modern Navbar -->
+    <nav class="akku-navbar">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <a href="/" class="navbar-brand">
+                    <i class="fas fa-robot" style="color: var(--acc); margin-right: 8px;"></i>
+                    AkkuAppsAi
+                </a>
+                <div style="display: flex; gap: 8px;">
+                    <a href="/" class="nav-link-custom">Home</a>
+                    <a href="/Chat" class="nav-link-custom">Chat</a>
+                    <a href="/Tools/ImageEditor" class="nav-link-custom">Image Editor</a>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <button id="langToggle" class="nav-btn">தமிழ்</button>
+                <button id="themeToggle" class="nav-btn"><i class="fas fa-moon"></i> Dark</button>
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <span style="color: var(--txt2); font-size: 0.85rem; margin-left: 8px;">
+                        <i class="fas fa-user-circle"></i> @User.Identity.Name?.Split('@')[0]
+                    </span>
+                    <form asp-controller="Account" asp-action="Logout" method="post" style="display: inline;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="nav-btn" style="color: var(--err);">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <a href="/Account/Login" class="nav-btn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                    <a href="/Account/Register" class="nav-btn" style="background: var(--acc); color: white;">
+                        <i class="fas fa-user-plus"></i> Sign Up
+                    </a>
+                }
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-main">
+        <main role="main">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <!-- Footer -->
+    <footer class="footer">
         <div class="container">
-            &copy; 2026 - AkkuAppsAi - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <p>&copy; 2026 AkkuAppsAi - AI for Everyone</p>
+            <p style="font-size: 0.8rem; margin-top: 8px;">
+                <a href="/Privacy">Privacy Policy</a> |
+                <a href="/Terms">Terms of Service</a> |
+                <a href="mailto:support@akkuapps.in">Contact Us</a>
+            </p>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-
-    
-
     <script src="~/js/site.js" asp-append-version="true"></script>
 
+    <!-- Global theme and language script -->
+    <script>
+        (function() {
+        // Theme handling
+        function initTheme() {
+        const savedTheme = localStorage.getItem('akku_theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeButton(savedTheme);
+        }
+
+        function toggleTheme() {
+        const current = document.documentElement.getAttribute('data-theme');
+        const newTheme = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('akku_theme', newTheme);
+        updateThemeButton(newTheme);
+        }
+
+        function updateThemeButton(theme) {
+        const btn = document.getElementById('themeToggle');
+        if (btn) {
+        btn.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i> Light' : '<i class="fas fa-moon"></i> Dark';
+        }
+        }
+
+        // Language translations (simplified for navbar)
+        const langTranslations = {
+        en: {
+        brand: "AkkuAppsAi",
+        home: "Home",
+        chat: "Chat",
+        imageEditor: "Image Editor"
+        },
+        ta: {
+        brand: "அக்குஆப்ஸ்",
+        home: "முகப்பு",
+        chat: "அரட்டை",
+        imageEditor: "பட எடிட்டர்"
+        }
+        };
+
+        let currentLang = localStorage.getItem('akku_lang') || 'en';
+
+        function applyLanguage(lang) {
+        const t = langTranslations[lang];
+        if (t) {
+        document.querySelector('.navbar-brand').innerHTML = '<i class="fas fa-robot" style="color: var(--acc); margin-right: 8px;"></i> ' + t.brand;
+        const links = document.querySelectorAll('.nav-link-custom');
+        if (links[0]) links[0].textContent = t.home;
+        if (links[1]) links[1].textContent = t.chat;
+        if (links[2]) links[2].textContent = t.imageEditor;
+        }
+        currentLang = lang;
+        localStorage.setItem('akku_lang', lang);
+        const btn = document.getElementById('langToggle');
+        if (btn) btn.textContent = lang === 'en' ? 'தமிழ்' : 'English';
+
+        // Dispatch event for page-specific handlers
+        window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang: lang } }));
+        }
+
+        function toggleLanguage() {
+        const newLang = currentLang === 'en' ? 'ta' : 'en';
+        applyLanguage(newLang);
+        }
+
+        // Expose globally
+        window.toggleTheme = toggleTheme;
+        window.toggleLanguage = toggleLanguage;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+        initTheme();
+        applyLanguage(currentLang);
+
+        const langBtn = document.getElementById('langToggle');
+        const themeBtn = document.getElementById('themeToggle');
+        if (langBtn) langBtn.onclick = toggleLanguage;
+        if (themeBtn) themeBtn.onclick = toggleTheme;
+        });
+        })();
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
