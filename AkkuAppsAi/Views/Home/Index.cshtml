@@ -1,8 +1,126 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "AkkuAppsAi – AI for Everyone";
+    Layout = "_Layout";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+
+<main class="home-main">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-badge" data-lang-key="heroBadge">⚡ AI Powered Solutions</div>
+            <h1 class="hero-title">
+                <span data-lang-key="heroTitle1">AI for Everyone –</span>
+                <span class="gradient-text" data-lang-key="heroTitle2">Simple, Powerful, Accessible</span>
+            </h1>
+            <p class="hero-desc" data-lang-key="heroDesc">
+                We bring cutting‑edge artificial intelligence to students, creators, and businesses.
+                Free tools, premium services, and custom AI solutions – all in one place.
+            </p>
+            <div class="hero-buttons">
+                <a href="/Chat" class="btn btn-primary btn-lg">
+                    <i class="fas fa-comment-dots"></i> <span data-lang-key="startChat">Start Chatting</span>
+                </a>
+                <a href="/Tools/ImageEditor" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-paintbrush"></i> <span data-lang-key="tryEditor">Try Image Editor</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="services-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-lang-key="servicesTitle">✨ What We Offer</h2>
+                <p data-lang-key="servicesSub">Free & paid – choose what fits your needs</p>
+            </div>
+            <div class="services-grid">
+                <!-- Card 1 -->
+                <div class="service-card">
+                    <div class="card-icon"><i class="fas fa-robot"></i></div>
+                    <h3 data-lang-key="serviceChatTitle">AI ChatBot</h3>
+                    <p data-lang-key="serviceChatDesc">Multi‑model support (GPT, Flux, Llama). Smart, contextual, and always learning.</p>
+                    <div class="card-tag free">Free + Premium</div>
+                    <a href="/Chat" class="card-link" data-lang-key="tryNow">Try now →</a>
+                </div>
+                <!-- Card 2 -->
+                <div class="service-card">
+                    <div class="card-icon"><i class="fas fa-palette"></i></div>
+                    <h3 data-lang-key="serviceImageTitle">Image Generator & Editor</h3>
+                    <p data-lang-key="serviceImageDesc">Generate AI art, remove backgrounds, upscale, inpaint – professional tools.</p>
+                    <div class="card-tag coin">⬡ 2 / image</div>
+                    <a href="/Tools/ImageEditor" class="card-link" data-lang-key="tryNow">Try now →</a>
+                </div>
+                <!-- Card 3 -->
+                <div class="service-card">
+                    <div class="card-icon"><i class="fas fa-file-alt"></i></div>
+                    <h3 data-lang-key="serviceOcrTitle">OCR & Document Scanner</h3>
+                    <p data-lang-key="serviceOcrDesc">Extract text from images, PDFs, and handwritten notes. Converts to editable text.</p>
+                    <div class="card-tag free">Free</div>
+                    <a href="/Tools/ImageToText" class="card-link" data-lang-key="tryNow">Try now →</a>
+                </div>
+                <!-- Card 4 -->
+                <div class="service-card">
+                    <div class="card-icon"><i class="fas fa-keyboard"></i></div>
+                    <h3 data-lang-key="serviceTypingTitle">Unicode Typing Tools</h3>
+                    <p data-lang-key="serviceTypingDesc">Tamil, English, and other Indic language typing made easy. Windows apps available.</p>
+                    <div class="card-tag free">Free</div>
+                    <a href="/Software" class="card-link" data-lang-key="learnMore">Learn more →</a>
+                </div>
+                <!-- Card 5 -->
+                <div class="service-card">
+                    <div class="card-icon"><i class="fas fa-laptop-code"></i></div>
+                    <h3 data-lang-key="serviceDevTitle">Web & App Development</h3>
+                    <p data-lang-key="serviceDevDesc">Custom websites, student projects, social media platforms – we build your vision.</p>
+                    <div class="card-tag paid">Paid</div>
+                    <a href="#contact" class="card-link" data-lang-key="contactUs">Contact us →</a>
+                </div>
+                <!-- Card 6 -->
+                <div class="service-card">
+                    <div class="card-icon"><i class="fas fa-brain"></i></div>
+                    <h3 data-lang-key="serviceMlTitle">AI/ML Learning & Assistant</h3>
+                    <p data-lang-key="serviceMlDesc">Learn machine learning with us. Build your own answering machine / work assistant.</p>
+                    <div class="card-tag coming">Soon</div>
+                    <a href="/Learn" class="card-link" data-lang-key="stayTuned">Stay tuned →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features / Why Us -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-lang-key="whyTitle">Why AkkuAppsAi?</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature"><i class="fas fa-gem"></i> <span data-lang-key="feat1">Cutting‑edge models (Flux, GPT, LLaMA)</span></div>
+                <div class="feature"><i class="fas fa-coins"></i> <span data-lang-key="feat2">Coin system – fair and transparent</span></div>
+                <div class="feature"><i class="fas fa-language"></i> <span data-lang-key="feat3">Full Tamil & English support</span></div>
+                <div class="feature"><i class="fas fa-shield-alt"></i> <span data-lang-key="feat4">Privacy focused, no hidden logs</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / Contact -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <h2 data-lang-key="ctaTitle">Ready to build your AI project?</h2>
+            <p data-lang-key="ctaDesc">From answering machines to complete business solutions – we're here to help.</p>
+            <div class="cta-buttons">
+                <a href="mailto:support@akkuapps.in" class="btn btn-light btn-lg">
+                    <i class="fas fa-envelope"></i> <span data-lang-key="emailUs">Email Us</span>
+                </a>
+                <a href="/Dashboard" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-chart-line"></i> <span data-lang-key="dashboard">Dashboard</span>
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+
+@section Scripts {
+    <script src="~/js/home.js" asp-append-version="true"></script>
+}

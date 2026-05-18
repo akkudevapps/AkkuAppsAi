@@ -1,0 +1,264 @@
+﻿/* ============================================
+   AkkuAppsAi Home Page - Universal Theme
+   Uses CSS variables from main site (dark/light)
+   ============================================ */
+
+.home-main {
+    overflow-x: hidden;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, var(--bg) 0%, var(--panel) 100%);
+    padding: 5rem 0 4rem;
+    text-align: center;
+    border-bottom: 1px solid var(--bdr);
+    position: relative;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: var(--acc-s);
+    color: var(--acc);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+}
+
+.hero-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.gradient-text {
+    background: linear-gradient(120deg, var(--acc), #a855f7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero-desc {
+    font-size: 1.2rem;
+    color: var(--txt2);
+    max-width: 700px;
+    margin: 0 auto 2rem;
+}
+
+.hero-buttons .btn {
+    margin: 0.5rem;
+    padding: 0.75rem 1.8rem;
+    border-radius: 40px;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: var(--acc);
+    border-color: var(--acc);
+}
+
+    .btn-primary:hover {
+        background: var(--acc-h);
+        border-color: var(--acc-h);
+    }
+
+.btn-outline-light {
+    border-color: var(--bdr-b);
+    color: var(--txt);
+}
+
+    .btn-outline-light:hover {
+        background: var(--surf-h);
+        border-color: var(--acc);
+        color: var(--acc);
+    }
+
+/* Section Headers */
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+    .section-header h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .section-header p {
+        color: var(--txt2);
+        font-size: 1rem;
+    }
+
+/* Services Grid */
+.services-section {
+    padding: 5rem 0;
+    background: var(--bg);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.service-card {
+    background: var(--panel);
+    border: 1px solid var(--bdr);
+    border-radius: 24px;
+    padding: 1.8rem;
+    transition: all 0.25s ease;
+}
+
+    .service-card:hover {
+        transform: translateY(-6px);
+        border-color: var(--acc);
+        box-shadow: 0 20px 30px -12px rgba(0,0,0,0.2);
+    }
+
+.card-icon {
+    font-size: 2.5rem;
+    color: var(--acc);
+    margin-bottom: 1rem;
+}
+
+.service-card h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.service-card p {
+    color: var(--txt2);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+}
+
+.card-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.8rem;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+}
+
+    .card-tag.free {
+        background: rgba(46,160,67,0.15);
+        color: #2ea043;
+    }
+
+    .card-tag.coin {
+        background: rgba(240,192,64,0.15);
+        color: var(--coin);
+    }
+
+    .card-tag.paid {
+        background: rgba(93,124,248,0.15);
+        color: var(--acc);
+    }
+
+    .card-tag.coming {
+        background: rgba(224,80,78,0.15);
+        color: var(--err);
+    }
+
+.card-link {
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--acc);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.2s;
+}
+
+    .card-link:hover {
+        gap: 10px;
+        text-decoration: underline;
+    }
+
+/* Features */
+.features-section {
+    padding: 4rem 0;
+    background: var(--panel);
+    border-top: 1px solid var(--bdr);
+    border-bottom: 1px solid var(--bdr);
+}
+
+.features-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--txt);
+    background: var(--surf);
+    padding: 0.6rem 1.2rem;
+    border-radius: 60px;
+}
+
+    .feature i {
+        color: var(--acc);
+        font-size: 1.2rem;
+    }
+
+/* CTA Section */
+.cta-section {
+    padding: 5rem 0;
+    text-align: center;
+    background: linear-gradient(135deg, var(--acc-s) 0%, var(--bg) 100%);
+}
+
+    .cta-section h2 {
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
+    .cta-section p {
+        font-size: 1.1rem;
+        color: var(--txt2);
+        margin-bottom: 2rem;
+    }
+
+.cta-buttons .btn {
+    margin: 0.5rem;
+    padding: 0.7rem 2rem;
+    border-radius: 40px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-desc {
+        font-size: 1rem;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .features-grid {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .feature {
+        justify-content: center;
+    }
+}
