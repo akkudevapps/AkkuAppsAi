@@ -1,0 +1,33 @@
+@model List<AkkuAppsAi.Models.CoinTransaction>
+@{ ViewData["Title"] = "Transaction Logs"; }
+
+<div class="page-container">
+    <div class="page-header">
+        <div>
+            <h1><i class="fas fa-list"></i> Transaction Logs</h1>
+            <p>Complete coin transaction history</p>
+        </div>
+    </div>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr><th>Txn ID</th><th>User</th><th>Type</th><th>Amount</th><th>Balance</th><th>Description</th><th>Date</th></tr>
+            </thead>
+            <tbody>
+                @foreach (var t in Model)
+                {
+                    <tr>
+                        <td><code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:0.75rem;">@t.TxnId[..8]</code></td>
+                        <td style="font-size:0.85rem;">@t.UserId[..8]...</td>
+                        <td><span class="badge badge-primary">@t.ReferenceType</span></td>
+                        <td class="@(t.Amount >= 0 ? "amount-pos" : "amount-neg")">@t.Amount.ToString("N0")</td>
+                        <td class="coin-amount">@t.BalanceAfter.ToString("N0")</td>
+                        <td style="color:var(--txt2);font-size:0.85rem;">@t.Description</td>
+                        <td>@t.CreatedAt.ToString("MMM dd, HH:mm")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

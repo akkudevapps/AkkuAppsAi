@@ -1,0 +1,64 @@
+@model List<AkkuAppsAi.Models.DigitalGood>
+@{
+    ViewData["Title"] = "Marketplace";
+    var categories = ViewBag.Categories as List<string> ?? new();
+    var selected = ViewBag.SelectedCategory as string;
+}
+
+<div class="page-container">
+    <div class="page-header">
+        <div>
+            <h1><i class="fas fa-store"></i> Digital Goods Marketplace</h1>
+            <p>Browse and buy digital goods with Akku Coins</p>
+        </div>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <a href="/Marketplace/Create" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
+        }
+    </div>
+
+    @if (TempData["Success"] != null) { <div class="alert alert-success"><i class="fas fa-check"></i> @TempData["Success"]</div> }
+    @if (TempData["Error"] != null) { <div class="alert alert-danger"><i class="fas fa-times"></i> @TempData["Error"]</div> }
+
+    <div class="flex flex-wrap gap-1 mb-3">
+        <a href="/Marketplace" class="btn btn-sm @(selected == null ? "btn-primary" : "btn-ghost")">All</a>
+        @foreach (var cat in categories)
+        {
+            <a href="/Marketplace?category=@Uri.EscapeDataString(cat)" class="btn btn-sm @(selected == cat ? "btn-primary" : "btn-ghost")">@cat</a>
+        }
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="empty-state">
+            <i class="fas fa-box-open"></i>
+            <h3>No goods available yet</h3>
+            <p>Check back later for new digital products</p>
+        </div>
+    }
+
+    <div class="grid-3">
+        @foreach (var good in Model)
+        {
+            <div class="card animate-fade">
+                <div style="height:160px;background:var(--bg);position:relative;overflow:hidden;">
+                    @if (!string.IsNullOrEmpty(good.ThumbnailUrl))
+                    { <img src="@good.ThumbnailUrl" alt="@good.Title" style="width:100%;height:100%;object-fit:cover;" /> }
+                    else
+                    { <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;color:var(--txt3);"><i class="fas fa-image"></i></div> }
+                    @if (good.HasCommission)
+                    { <span class="badge badge-danger" style="position:absolute;top:8px;right:8px;">+10%</span> }
+                </div>
+                <div class="card-body">
+                    @if (!string.IsNullOrEmpty(good.Category)) { <span class="badge badge-primary" style="font-size:0.7rem;">@good.Category</span> }
+                    <h3 style="margin:0.5rem 0;font-size:1rem;">@good.Title</h3>
+                    <p style="color:var(--txt2);font-size:0.85rem;margin:0 0 1rem;">@(good.Description?.Length > 60 ? good.Description[..60] + "..." : good.Description)</p>
+                    <div class="flex justify-between items-center">
+                        <span class="coin-amount"><i class="fas fa-coins"></i> @good.PriceInCoins.ToString("N0")</span>
+                        <a href="/Marketplace/Details/@good.GoodId" class="btn btn-sm btn-primary">View <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

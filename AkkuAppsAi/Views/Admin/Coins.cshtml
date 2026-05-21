@@ -1,0 +1,81 @@
+@model List<AkkuAppsAi.Models.User>
+@{ ViewData["Title"] = "Coin Economy"; }
+
+<div class="page-container">
+    <div class="page-header">
+        <div>
+            <h1><i class="fas fa-coins"></i> Coin Economy</h1>
+            <p>Manage coins, adjust balances, and view transactions</p>
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null) { <div class="alert alert-success"><i class="fas fa-check"></i> @TempData["Success"]</div> }
+
+    <div class="card mb-3">
+        <div class="card-header"><h3 style="margin:0;font-size:1rem;"><i class="fas fa-plus-circle" style="color:var(--coin)"></i> Adjust Coins</h3></div>
+        <div class="card-body">
+            <form method="post" asp-action="AdjustCoins" class="grid-2" style="gap:1rem;">
+                <div class="form-group">
+                    <label>User ID</label>
+                    <input type="text" name="userId" class="form-input" required placeholder="Enter user ID" />
+                </div>
+                <div class="form-group">
+                    <label>Amount (negative to deduct)</label>
+                    <input type="number" name="amount" class="form-input" step="1" required placeholder="e.g., 100 or -50" />
+                </div>
+                <div class="form-group" style="grid-column:1/-1;">
+                    <label>Description</label>
+                    <input type="text" name="description" class="form-input" placeholder="Reason for adjustment" />
+                </div>
+                <div style="grid-column:1/-1;">
+                    <button type="submit" class="btn btn-warning"><i class="fas fa-coins"></i> Adjust Coins</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header"><h3 style="margin:0;font-size:1rem;"><i class="fas fa-users" style="color:var(--acc)"></i> User Balances</h3></div>
+        <div class="card-body" style="padding:0;">
+            <div class="table-wrap" style="border:none;border-radius:0;">
+                <table>
+                    <thead><tr><th>User</th><th>Email</th><th>Type</th><th>Coin Balance</th></tr></thead>
+                    <tbody>
+                        @foreach (var u in Model)
+                        {
+                            <tr>
+                                <td style="font-weight:500;">@u.Name</td>
+                                <td style="color:var(--txt2);font-size:0.8rem;">@u.Email</td>
+                                <td><span class="badge @(u.UserType == "AkkuAdmin" ? "badge-danger" : u.UserType == "AkkuProUser" ? "badge-purple" : "badge-primary")">@u.UserType</span></td>
+                                <td class="coin-amount">@u.CoinBalance.ToString("N0")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><h3 style="margin:0;font-size:1rem;"><i class="fas fa-list" style="color:var(--purple)"></i> Recent Transactions</h3></div>
+        <div class="card-body" style="padding:0;">
+            <div class="table-wrap" style="border:none;border-radius:0;">
+                <table>
+                    <thead><tr><th>Type</th><th>Amount</th><th>Balance After</th><th>Description</th><th>Date</th></tr></thead>
+                    <tbody>
+                        @foreach (var t in (ViewBag.Transactions as List<AkkuAppsAi.Models.CoinTransaction>) ?? new())
+                        {
+                            <tr>
+                                <td><span class="badge badge-primary">@t.ReferenceType</span></td>
+                                <td class="@(t.Amount >= 0 ? "amount-pos" : "amount-neg")">@t.Amount.ToString("N0")</td>
+                                <td class="coin-amount">@t.BalanceAfter.ToString("N0")</td>
+                                <td style="color:var(--txt2);font-size:0.85rem;">@t.Description</td>
+                                <td>@t.CreatedAt.ToString("MMM dd, HH:mm")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

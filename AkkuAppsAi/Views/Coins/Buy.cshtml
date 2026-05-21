@@ -1,0 +1,57 @@
+@model List<AkkuAppsAi.Models.CoinPackage>
+@{ ViewData["Title"] = "Buy Coins"; }
+
+<div class="page-container">
+    <div class="page-header">
+        <div>
+            <h1><i class="fas fa-coins"></i> Buy Akku Coins</h1>
+            <p>Purchase coin packages via UPI. Admin will verify and release coins.</p>
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null) { <div class="alert alert-success"><i class="fas fa-check"></i> @TempData["Success"]</div> }
+
+    <div class="grid-3 mb-3">
+        @foreach (var pkg in Model)
+        {
+            <div class="card animate-fade text-center">
+                <div class="card-body">
+                    <div style="font-size:3rem;color:var(--coin);margin-bottom:0.5rem;"><i class="fas fa-coins"></i></div>
+                    <h2 style="margin:0;font-size:2rem;">@pkg.Coins.ToString("N0")</h2>
+                    <p style="color:var(--txt2);margin:0.25rem 0;">Coins</p>
+                    <div style="font-size:1.5rem;font-weight:700;color:var(--ok);margin:0.5rem 0;">₹ @pkg.PriceINR.ToString("N2")</div>
+                    @if (!string.IsNullOrEmpty(pkg.Description))
+                    { <p style="color:var(--txt2);font-size:0.85rem;margin:0.5rem 0;">@pkg.Description</p> }
+                    <form method="post" asp-action="PlaceOrder" class="mt-2">
+                        <input type="hidden" name="packageId" value="@pkg.PackageId" />
+                        <button type="submit" class="btn btn-warning btn-block"><i class="fas fa-shopping-cart"></i> Buy Now</button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="card animate-fade">
+        <div class="card-header"><h3 style="margin:0;font-size:1rem;"><i class="fas fa-info-circle" style="color:var(--acc)"></i> How It Works</h3></div>
+        <div class="card-body">
+            <div class="grid-4">
+                <div class="text-center">
+                    <div style="width:40px;height:40px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 0.5rem;font-weight:700;">1</div>
+                    <p style="margin:0;font-size:0.85rem;">Select a package & place order</p>
+                </div>
+                <div class="text-center">
+                    <div style="width:40px;height:40px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 0.5rem;font-weight:700;">2</div>
+                    <p style="margin:0;font-size:0.85rem;">Pay via UPI to admin's GPay QR</p>
+                </div>
+                <div class="text-center">
+                    <div style="width:40px;height:40px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 0.5rem;font-weight:700;">3</div>
+                    <p style="margin:0;font-size:0.85rem;">Submit your UPI Transaction ID</p>
+                </div>
+                <div class="text-center">
+                    <div style="width:40px;height:40px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 0.5rem;font-weight:700;">4</div>
+                    <p style="margin:0;font-size:0.85rem;">Admin verifies & releases coins</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

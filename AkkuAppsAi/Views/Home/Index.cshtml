@@ -1,121 +1,303 @@
 ﻿@{
-    ViewData["Title"] = "AkkuAppsAi – AI for Everyone";
+    ViewData["Title"] = "AkkuAppsAi - AI for Everyone";
 }
 
-@section Styles {
-    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
-}
+<style>
+    :root {
+        --bg: #09090f; --bg2: #0f1019; --panel: #0f1019; --surf: #16161e;
+        --bdr: #252535; --txt: #ddddf5; --txt2: #8888a5; --acc: #5d7cf8;
+        --coin: #e89c35; --ok: #1dbf7e; --err: #e0504e;
+    }
+    .hero-section {
+        background: linear-gradient(135deg, var(--bg2) 0%, var(--bg) 100%);
+        padding: 5rem 1rem;
+        text-align: center;
+        border-bottom: 1px solid var(--bdr);
+    }
+    .hero-badge {
+        display: inline-block;
+        background: var(--acc);
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+    }
+    .hero-title {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+    }
+    .gradient-text {
+        background: linear-gradient(90deg, var(--acc), #a78bfa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .hero-desc {
+        font-size: 1.2rem;
+        color: var(--txt2);
+        max-width: 700px;
+        margin: 0 auto 2rem;
+    }
+    .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary-custom {
+        background: var(--acc);
+        color: white;
+        padding: 0.75rem 2rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+    .btn-primary-custom:hover { background: #7090ff; color: white; }
+    .btn-outline-custom {
+        background: transparent;
+        color: var(--txt);
+        padding: 0.75rem 2rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        border: 1px solid var(--bdr);
+        transition: all 0.2s;
+    }
+    .btn-outline-custom:hover { border-color: var(--acc); color: var(--acc); }
+    
+    .features-section { padding: 4rem 1rem; }
+    .section-header { text-align: center; margin-bottom: 3rem; }
+    .section-header h2 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .section-header p { color: var(--txt2); font-size: 1.1rem; }
+    
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .feature-card {
+        background: var(--surf);
+        border: 1px solid var(--bdr);
+        border-radius: 12px;
+        padding: 2rem;
+        transition: all 0.3s;
+        text-decoration: none;
+        color: inherit;
+    }
+    .feature-card:hover {
+        border-color: var(--acc);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(93, 124, 248, 0.15);
+    }
+    .feature-icon {
+        width: 50px;
+        height: 50px;
+        background: var(--acc);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+    .feature-card h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .feature-card p { color: var(--txt2); font-size: 0.9rem; line-height: 1.5; }
+    .feature-tag {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-top: 1rem;
+    }
+    .tag-free { background: rgba(29, 191, 126, 0.15); color: var(--ok); }
+    .tag-coin { background: rgba(232, 156, 53, 0.15); color: var(--coin); }
+    .tag-new { background: rgba(93, 124, 248, 0.15); color: var(--acc); }
+    .tag-admin { background: rgba(224, 80, 78, 0.15); color: var(--err); }
+    
+    .stats-section {
+        background: var(--panel);
+        border-top: 1px solid var(--bdr);
+        border-bottom: 1px solid var(--bdr);
+        padding: 3rem 1rem;
+    }
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .stat-item h3 { font-size: 2.5rem; font-weight: 800; color: var(--acc); }
+    .stat-item p { color: var(--txt2); margin: 0; }
+    
+    .cta-section {
+        background: linear-gradient(135deg, var(--acc) 0%, #a78bfa 100%);
+        padding: 4rem 1rem;
+        text-align: center;
+        color: white;
+    }
+    .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
+    .cta-section p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem; }
+    .btn-cta {
+        background: white;
+        color: var(--acc);
+        padding: 0.75rem 2rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-block;
+        transition: all 0.2s;
+    }
+    .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+</style>
 
-<main class="home-main">
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container">
-            <div class="hero-badge" data-lang-key="heroBadge">⚡ AI Powered Solutions</div>
-            <h1 class="hero-title">
-                <span data-lang-key="heroTitle1">AI for Everyone –</span>
-                <span class="gradient-text" data-lang-key="heroTitle2">Simple, Powerful, Accessible</span>
-            </h1>
-            <p class="hero-desc" data-lang-key="heroDesc">
-                We bring cutting‑edge artificial intelligence to students, creators, and businesses.
-                Free tools, premium services, and custom AI solutions – all in one place.
-            </p>
-            <div class="hero-buttons">
-                <a href="/Chat" class="btn btn-primary btn-lg">
-                    <i class="fas fa-comment-dots"></i> <span data-lang-key="startChat">Start Chatting</span>
-                </a>
-                <a href="/Tools/ImageEditor" class="btn btn-outline-light btn-lg">
-                    <i class="fas fa-paintbrush"></i> <span data-lang-key="tryEditor">Try Image Editor</span>
-                </a>
-            </div>
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-badge">AI Powered Solutions</div>
+    <h1 class="hero-title">
+        AI for Everyone – <span class="gradient-text">Simple, Powerful, Accessible</span>
+    </h1>
+    <p class="hero-desc">
+        Learn AI, build projects, create content, and automate tasks. All in one platform.
+    </p>
+    <div class="hero-buttons">
+        <a href="/Dashboard" class="btn-primary-custom">
+            <i class="fas fa-rocket"></i> Get Started
+        </a>
+        <a href="#features" class="btn-outline-custom">
+            <i class="fas fa-th-large"></i> Explore Features
+        </a>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="stats-grid">
+        <div class="stat-item">
+            <h3>10+</h3>
+            <p>AI Tools</p>
         </div>
-    </section>
-
-    <!-- Services Grid -->
-    <section class="services-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 data-lang-key="servicesTitle">✨ What We Offer</h2>
-                <p data-lang-key="servicesSub">Free & paid – choose what fits your needs</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="card-icon"><i class="fas fa-robot"></i></div>
-                    <h3 data-lang-key="serviceChatTitle">AI ChatBot</h3>
-                    <p data-lang-key="serviceChatDesc">Multi‑model support (GPT, Flux, Llama). Smart, contextual, and always learning.</p>
-                    <div class="card-tag free">Free + Premium</div>
-                    <a href="/Chat" class="card-link" data-lang-key="tryNow">Try now →</a>
-                </div>
-                <div class="service-card">
-                    <div class="card-icon"><i class="fas fa-palette"></i></div>
-                    <h3 data-lang-key="serviceImageTitle">Image Generator & Editor</h3>
-                    <p data-lang-key="serviceImageDesc">Generate AI art, remove backgrounds, upscale, inpaint – professional tools.</p>
-                    <div class="card-tag coin">⬡ 2 / image</div>
-                    <a href="/Tools/ImageEditor" class="card-link" data-lang-key="tryNow">Try now →</a>
-                </div>
-                <div class="service-card">
-                    <div class="card-icon"><i class="fas fa-file-alt"></i></div>
-                    <h3 data-lang-key="serviceOcrTitle">OCR & Document Scanner</h3>
-                    <p data-lang-key="serviceOcrDesc">Extract text from images, PDFs, and handwritten notes. Converts to editable text.</p>
-                    <div class="card-tag free">Free</div>
-                    <a href="/Tools/ImageToText" class="card-link" data-lang-key="tryNow">Try now →</a>
-                </div>
-                <div class="service-card">
-                    <div class="card-icon"><i class="fas fa-keyboard"></i></div>
-                    <h3 data-lang-key="serviceTypingTitle">Unicode Typing Tools</h3>
-                    <p data-lang-key="serviceTypingDesc">Tamil, English, and other Indic language typing made easy. Windows apps available.</p>
-                    <div class="card-tag free">Free</div>
-                    <a href="/Software" class="card-link" data-lang-key="learnMore">Learn more →</a>
-                </div>
-                <div class="service-card">
-                    <div class="card-icon"><i class="fas fa-laptop-code"></i></div>
-                    <h3 data-lang-key="serviceDevTitle">Web & App Development</h3>
-                    <p data-lang-key="serviceDevDesc">Custom websites, student projects, social media platforms – we build your vision.</p>
-                    <div class="card-tag paid">Paid</div>
-                    <a href="#contact" class="card-link" data-lang-key="contactUs">Contact us →</a>
-                </div>
-                <div class="service-card">
-                    <div class="card-icon"><i class="fas fa-brain"></i></div>
-                    <h3 data-lang-key="serviceMlTitle">AI/ML Learning & Assistant</h3>
-                    <p data-lang-key="serviceMlDesc">Learn machine learning with us. Build your own answering machine / work assistant.</p>
-                    <div class="card-tag coming">Soon</div>
-                    <a href="/Learn" class="card-link" data-lang-key="stayTuned">Stay tuned →</a>
-                </div>
-            </div>
+        <div class="stat-item">
+            <h3>Free</h3>
+            <p>ChatBot Access</p>
         </div>
-    </section>
-
-    <!-- Features / Why Us -->
-    <section class="features-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 data-lang-key="whyTitle">Why AkkuAppsAi?</h2>
-            </div>
-            <div class="features-grid">
-                <div class="feature"><i class="fas fa-gem"></i> <span data-lang-key="feat1">Cutting‑edge models (Flux, GPT, LLaMA)</span></div>
-                <div class="feature"><i class="fas fa-coins"></i> <span data-lang-key="feat2">Coin system – fair and transparent</span></div>
-                <div class="feature"><i class="fas fa-language"></i> <span data-lang-key="feat3">Full Tamil & English support</span></div>
-                <div class="feature"><i class="fas fa-shield-alt"></i> <span data-lang-key="feat4">Privacy focused, no hidden logs</span></div>
-            </div>
+        <div class="stat-item">
+            <h3>100</h3>
+            <p>Welcome Coins</p>
         </div>
-    </section>
-
-    <!-- CTA / Contact -->
-    <section class="cta-section" id="contact">
-        <div class="container">
-            <h2 data-lang-key="ctaTitle">Ready to build your AI project?</h2>
-            <p data-lang-key="ctaDesc">From answering machines to complete business solutions – we're here to help.</p>
-            <div class="cta-buttons">
-                <a href="mailto:support@akkuapps.in" class="btn btn-light btn-lg">
-                    <i class="fas fa-envelope"></i> <span data-lang-key="emailUs">Email Us</span>
-                </a>
-                <a href="/Dashboard" class="btn btn-outline-light btn-lg">
-                    <i class="fas fa-chart-line"></i> <span data-lang-key="dashboard">Dashboard</span>
-                </a>
-            </div>
+        <div class="stat-item">
+            <h3>24/7</h3>
+            <p>Available</p>
         </div>
-    </section>
-</main>
+    </div>
+</section>
 
-@section Scripts {
-    <script src="~/js/home.js" asp-append-version="true"></script>
-}
+<!-- Features Section -->
+<section class="features-section" id="features">
+    <div class="section-header">
+        <h2>What We Offer</h2>
+        <p>Free & premium tools for learning, creating, and automating</p>
+    </div>
+    <div class="features-grid">
+        <a href="/Chat" class="feature-card">
+            <div class="feature-icon"><i class="fas fa-robot"></i></div>
+            <h3>AI ChatBot</h3>
+            <p>Multi-model AI assistant. Ask questions, get answers, learn concepts.</p>
+            <span class="feature-tag tag-free">Free</span>
+        </a>
+        
+        <a href="/Tools/ImageEditor" class="feature-card">
+            <div class="feature-icon"><i class="fas fa-palette"></i></div>
+            <h3>Image Editor</h3>
+            <p>Generate AI art, remove backgrounds, upscale, and edit images.</p>
+            <span class="feature-tag tag-coin">2 Coins / image</span>
+        </a>
+        
+        <a href="/Tools/JsonCreator" class="feature-card">
+            <div class="feature-icon"><i class="fas fa-code"></i></div>
+            <h3>JSON Creator</h3>
+            <p>Build, validate, and format JSON data with ease.</p>
+            <span class="feature-tag tag-free">Free</span>
+        </a>
+        
+        <a href="/Tools/OCR" class="feature-card">
+            <div class="feature-icon"><i class="fas fa-file-alt"></i></div>
+            <h3>OCR Scanner</h3>
+            <p>Extract text from images, PDFs, and handwritten notes.</p>
+            <span class="feature-tag tag-free">Free</span>
+        </a>
+        
+        <a href="/Tools/PDFReader" class="feature-card">
+            <div class="feature-icon"><i class="fas fa-file-pdf"></i></div>
+            <h3>PDF Reader</h3>
+            <p>Read, search, and extract content from PDF files.</p>
+            <span class="feature-tag tag-free">Free</span>
+        </a>
+        
+        <a href="/Tools/Prompts" class="feature-card">
+            <div class="feature-icon"><i class="fas fa-lightbulb"></i></div>
+            <h3>Prompt Templates</h3>
+            <p>Ready-made AI prompts for various use cases.</p>
+            <span class="feature-tag tag-new">New</span>
+        </a>
+        
+        <a href="/Tools/PythonAutomation" class="feature-card">
+            <div class="feature-icon"><i class="fab fa-python"></i></div>
+            <h3>Python Automation</h3>
+            <p>Run Python scripts for automation and data processing.</p>
+            <span class="feature-tag tag-coin">5 Coins / run</span>
+        </a>
+        
+        <a href="/Games" class="feature-card">
+            <div class="feature-icon"><i class="fas fa-gamepad"></i></div>
+            <h3>Coin Games</h3>
+            <p>Play games, earn coins, and climb the leaderboard.</p>
+            <span class="feature-tag tag-coin">Play & Earn</span>
+        </a>
+        
+        <a href="/News" class="feature-card">
+            <div class="feature-icon"><i class="fas fa-newspaper"></i></div>
+            <h3>News & Articles</h3>
+            <p>Latest AI news and articles from AkkuApps.in</p>
+            <span class="feature-tag tag-free">Free</span>
+        </a>
+        
+        <a href="/Learn" class="feature-card">
+            <div class="feature-icon"><i class="fas fa-graduation-cap"></i></div>
+            <h3>AI Learning</h3>
+            <p>Tutorials, courses, and resources for AI beginners.</p>
+            <span class="feature-tag tag-free">Free</span>
+        </a>
+        
+        <a href="/Tools/ImageTemplates" class="feature-card">
+            <div class="feature-icon"><i class="fas fa-images"></i></div>
+            <h3>Image Templates</h3>
+            <p>Pre-built templates for quick image generation.</p>
+            <span class="feature-tag tag-new">New</span>
+        </a>
+        
+        <a href="/Admin" class="feature-card" style="border-color: var(--err);">
+            <div class="feature-icon" style="background: var(--err);"><i class="fas fa-shield-alt"></i></div>
+            <h3>Admin Panel</h3>
+            <p>Manage users, coins, content, and platform settings.</p>
+            <span class="feature-tag tag-admin">Admin Only</span>
+        </a>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <h2>Ready to explore AI?</h2>
+    <p>Start with free tools or use your welcome coins for premium features.</p>
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <a href="/Dashboard" class="btn-cta">Go to Dashboard</a>
+    }
+    else
+    {
+        <a href="/Account/Login" class="btn-cta">Login with Google</a>
+    }
+</section>

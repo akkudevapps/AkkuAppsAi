@@ -1,0 +1,78 @@
+@model AkkuAppsAi.Models.User
+@{ ViewData["Title"] = "User Detail"; }
+
+<div class="page-container">
+    <a href="/Admin/Users" class="btn btn-ghost btn-sm mb-3"><i class="fas fa-arrow-left"></i> Back to Users</a>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-header"><h3 style="margin:0;font-size:1rem;"><i class="fas fa-user" style="color:var(--acc)"></i> User Info</h3></div>
+            <div class="card-body">
+                <div class="flex items-center gap-3 mb-3">
+                    @if (!string.IsNullOrEmpty(Model.Avatar))
+                    { <img src="@Model.Avatar" alt="@Model.Name" style="width:60px;height:60px;border-radius:50%;object-fit:cover;" /> }
+                    else
+                    { <div style="width:60px;height:60px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:700;">@Model.Name[0]</div> }
+                    <div>
+                        <h3 style="margin:0;">@Model.Name</h3>
+                        <p style="color:var(--txt2);margin:0;font-size:0.85rem;">@Model.Email</p>
+                    </div>
+                </div>
+                <div class="grid-2" style="gap:0.5rem;">
+                    <div><span style="color:var(--txt2);font-size:0.8rem;">Type</span><br /><span class="badge @(Model.UserType == "AkkuAdmin" ? "badge-danger" : Model.UserType == "AkkuProUser" ? "badge-purple" : "badge-primary")">@Model.UserType</span></div>
+                    <div><span style="color:var(--txt2);font-size:0.8rem;">Role</span><br /><span class="badge badge-primary">@Model.Role</span></div>
+                    <div><span style="color:var(--txt2);font-size:0.8rem;">Coins</span><br /><span class="coin-amount">@Model.CoinBalance.ToString("N0")</span></div>
+                    <div><span style="color:var(--txt2);font-size:0.8rem;">Wallet</span><br /><span>@Model.WalletBalance.ToString("N2")</span></div>
+                    <div><span style="color:var(--txt2);font-size:0.8rem;">Status</span><br /><span class="badge @(Model.IsBanned ? "badge-danger" : "badge-success")">@(Model.IsBanned ? "Banned" : "Active")</span></div>
+                    <div><span style="color:var(--txt2);font-size:0.8rem;">Verified</span><br />@{ var vBadge = Model.IsVerified ? "badge-success" : "badge-warning"; var vText = Model.IsVerified ? "Yes" : "No"; }<span class="badge @vBadge">@vText</span></div>
+                    <div><span style="color:var(--txt2);font-size:0.8rem;">Created</span><br /><span style="font-size:0.85rem;">@Model.CreatedAt.ToString("MMM dd, yyyy")</span></div>
+                    <div><span style="color:var(--txt2);font-size:0.8rem;">Last Login</span><br /><span style="font-size:0.85rem;">@(Model.LastLogin?.ToString("MMM dd, yyyy") ?? "Never")</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><h3 style="margin:0;font-size:1rem;"><i class="fas fa-exchange-alt" style="color:var(--coin)"></i> Recent Transactions</h3></div>
+            <div class="card-body" style="padding:0;">
+                <div class="table-wrap" style="border:none;border-radius:0;">
+                    <table>
+                        <thead><tr><th>Type</th><th>Amount</th><th>Date</th></tr></thead>
+                        <tbody>
+                            @foreach (var t in (ViewBag.Transactions as List<AkkuAppsAi.Models.CoinTransaction>) ?? new())
+                            {
+                                <tr>
+                                    <td><span class="badge badge-primary">@t.ReferenceType</span></td>
+                                    <td class="@(t.Amount >= 0 ? "amount-pos" : "amount-neg")">@t.Amount.ToString("N0")</td>
+                                    <td style="font-size:0.8rem;">@t.CreatedAt.ToString("MMM dd")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <div class="card-header"><h3 style="margin:0;font-size:1rem;"><i class="fas fa-shopping-bag" style="color:var(--ok)"></i> Purchases</h3></div>
+        <div class="card-body" style="padding:0;">
+            <div class="table-wrap" style="border:none;border-radius:0;">
+                <table>
+                    <thead><tr><th>Good ID</th><th>Coins Paid</th><th>Commission</th><th>Total</th><th>Date</th></tr></thead>
+                    <tbody>
+                        @foreach (var p in (ViewBag.Purchases as List<AkkuAppsAi.Models.Purchase>) ?? new())
+                        {
+                            <tr>
+                                <td><code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:0.75rem;">@p.GoodId[..8]</code></td>
+                                <td class="coin-amount">@p.CoinsPaid.ToString("N0")</td>
+                                <td>@p.AdminCommission.ToString("N0")</td>
+                                <td class="coin-amount">@((p.CoinsPaid + p.AdminCommission).ToString("N0"))</td>
+                                <td>@p.CreatedAt.ToString("MMM dd, yyyy")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

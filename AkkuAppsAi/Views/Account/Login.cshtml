@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="login-container">
+    <div class="card shadow-lg">
+        <div class="card-body p-5">
+            <h2 class="card-title text-center mb-4">Welcome to AkkuAppsAi</h2>
+            
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData["Error"]</div>
+            }
+
+            <div class="text-center">
+                <a asp-action="GoogleLogin" asp-route-returnUrl="@ViewData["ReturnUrl"]" 
+                   class="btn btn-outline-primary btn-lg w-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-google me-2" viewBox="0 0 16 16">
+                        <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.093-.42 2.873-1.114l.002-.002c.37-.33.68-.75.92-1.228a4.55 4.55 0 0 0 .432-1.655c0-.567-.13-1.107-.36-1.594H8v-3h7.545z"/>
+                    </svg>
+                    Continue with Google
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .login-container { max-width: 450px; margin: 5rem auto; }
+</style>

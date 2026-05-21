@@ -1,0 +1,301 @@
+@{
+    ViewData["Title"] = "Admin Control Center";
+}
+
+<div class="page-container">
+    <div class="page-header">
+        <div>
+            <h1><i class="fas fa-shield-alt" style="color:var(--err)"></i> Admin Control Center</h1>
+            <p>Full system access and management</p>
+        </div>
+        <div class="flex gap-1">
+            <span class="badge badge-success"><i class="fas fa-circle" style="font-size:8px"></i> System Online</span>
+            <span class="badge badge-primary">@DateTime.Now.ToString("MMM dd, HH:mm") IST</span>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card glow-blue animate-fade stagger-1">
+            <div class="stat-icon"><i class="fas fa-users"></i></div>
+            <div class="stat-info">
+                <h3>@ViewBag.TotalUsers</h3>
+                <p>Total Users</p>
+            </div>
+        </div>
+        <div class="stat-card glow-green animate-fade stagger-2">
+            <div class="stat-icon"><i class="fas fa-cube"></i></div>
+            <div class="stat-info">
+                <h3>@ViewBag.TotalGoods</h3>
+                <p>Digital Goods</p>
+            </div>
+        </div>
+        <div class="stat-card glow-purple animate-fade stagger-3">
+            <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
+            <div class="stat-info">
+                <h3>@ViewBag.TotalPurchases</h3>
+                <p>Total Purchases</p>
+            </div>
+        </div>
+        <div class="stat-card glow-orange animate-fade stagger-4">
+            <div class="stat-icon"><i class="fas fa-eye"></i></div>
+            <div class="stat-info">
+                <h3>@ViewBag.TotalVisitors</h3>
+                <p>Total Visitors</p>
+            </div>
+        </div>
+        <div class="stat-card glow-red animate-fade stagger-5">
+            <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="stat-info">
+                <h3>@ViewBag.TodayVisitors</h3>
+                <p>Today's Visitors</p>
+            </div>
+        </div>
+        <div class="stat-card gold animate-fade stagger-6">
+            <div class="stat-icon"><i class="fas fa-coins"></i></div>
+            <div class="stat-info">
+                <h3>@ViewBag.PendingOrders</h3>
+                <p>Pending UPI Orders</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-grid">
+        <div class="admin-card animate-fade stagger-1">
+            <div class="admin-card-header">
+                <i class="fas fa-users-cog"></i>
+                <h3>User Management</h3>
+            </div>
+            <div class="admin-card-body">
+                <a href="/Admin/Users" class="admin-link">
+                    <i class="fas fa-user-friends"></i> <span>All Users</span> <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="/Admin/Promotions" class="admin-link">
+                    <i class="fas fa-arrow-up"></i> <span>Promotions</span> <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="/Admin/Coins" class="admin-link">
+                    <i class="fas fa-coins"></i> <span>Coin Economy</span> <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="/Admin/Logs" class="admin-link">
+                    <i class="fas fa-list"></i> <span>Transaction Logs</span> <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="admin-card animate-fade stagger-2">
+            <div class="admin-card-header">
+                <i class="fas fa-store"></i>
+                <h3>Marketplace</h3>
+            </div>
+            <div class="admin-card-body">
+                <a href="/Admin/DigitalGoods" class="admin-link">
+                    <i class="fas fa-cube"></i> <span>Digital Goods</span> <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="/Marketplace/Create" class="admin-link">
+                    <i class="fas fa-plus"></i> <span>Create Good</span> <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="/Admin/PurchaseOrders" class="admin-link">
+                    <i class="fas fa-credit-card"></i> <span>UPI Orders</span> <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="/Marketplace" class="admin-link">
+                    <i class="fas fa-eye"></i> <span>Preview</span> <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="admin-card animate-fade stagger-3">
+            <div class="admin-card-header">
+                <i class="fas fa-chart-pie"></i>
+                <h3>Analytics</h3>
+            </div>
+            <div class="admin-card-body">
+                <a href="/Admin/SiteAnalytics" class="admin-link">
+                    <i class="fas fa-chart-line"></i> <span>Site Analytics</span> <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="/Admin/SiteAnalytics" class="admin-link">
+                    <i class="fas fa-globe"></i> <span>Visitor Map</span> <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="/Admin/SiteAnalytics" class="admin-link">
+                    <i class="fas fa-clock"></i> <span>Time Zones</span> <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="/Admin/Logs" class="admin-link">
+                    <i class="fas fa-history"></i> <span>Activity Log</span> <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="admin-card animate-fade stagger-4">
+            <div class="admin-card-header">
+                <i class="fas fa-cog"></i>
+                <h3>System</h3>
+            </div>
+            <div class="admin-card-body">
+                <a href="/Admin/Settings" class="admin-link">
+                    <i class="fas fa-sliders-h"></i> <span>Configuration</span> <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="/Admin/Coins" class="admin-link">
+                    <i class="fas fa-gift"></i> <span>Free Coins</span> <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="/Admin/Promotions" class="admin-link">
+                    <i class="fas fa-crown"></i> <span>Pro Plans</span> <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="/Admin/Settings" class="admin-link">
+                    <i class="fas fa-database"></i> <span>Database</span> <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="admin-card animate-fade stagger-5">
+            <div class="admin-card-header">
+                <i class="fas fa-newspaper"></i>
+                <h3>Content</h3>
+            </div>
+            <div class="admin-card-body">
+                <a href="/News" class="admin-link">
+                    <i class="fas fa-globe"></i> <span>News Feed</span> <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="/Admin/Content" class="admin-link">
+                    <i class="fas fa-edit"></i> <span>Manage Content</span> <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="/Admin/Settings" class="admin-link">
+                    <i class="fas fa-image"></i> <span>Media Library</span> <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="/Admin/Settings" class="admin-link">
+                    <i class="fas fa-file-alt"></i> <span>Pages</span> <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="admin-card animate-fade stagger-6">
+            <div class="admin-card-header">
+                <i class="fas fa-tools"></i>
+                <h3>Quick Actions</h3>
+            </div>
+            <div class="admin-card-body">
+                <a href="/Coins/Buy" class="admin-link">
+                    <i class="fas fa-coins"></i> <span>Buy Coins</span> <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="/Profile" class="admin-link">
+                    <i class="fas fa-user"></i> <span>My Profile</span> <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="/Dashboard" class="admin-link">
+                    <i class="fas fa-home"></i> <span>User Dashboard</span> <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="/" class="admin-link">
+                    <i class="fas fa-external-link-alt"></i> <span>Public Site</span> <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-3 animate-fade">
+        <div class="card-header flex justify-between items-center">
+            <h3 style="margin:0;font-size:1rem;"><i class="fas fa-clock" style="color:var(--acc)"></i> Recent Activity</h3>
+            <a href="/Admin/Logs" class="btn btn-sm btn-ghost">View All</a>
+        </div>
+        <div class="card-body" style="padding:0;">
+            @if (ViewBag.RecentTransactions != null)
+            {
+                <div class="table-wrap" style="border:none;border-radius:0;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Description</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var t in (List<AkkuAppsAi.Models.CoinTransaction>)ViewBag.RecentTransactions)
+                            {
+                                <tr>
+                                    <td><span class="badge badge-primary">@t.ReferenceType</span></td>
+                                    <td class="@(t.Amount >= 0 ? "amount-pos" : "amount-neg")">@t.Amount.ToString("N0")</td>
+                                    <td>@t.Description</td>
+                                    <td>@t.CreatedAt.ToString("MMM dd, HH:mm")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="empty-state" style="padding:2rem;">
+                    <i class="fas fa-inbox"></i>
+                    <p>No recent activity</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .page-header h1 { margin: 0; font-size: 1.8rem; }
+    .page-header p { color: var(--txt2); margin: 0.25rem 0 0; }
+
+    .admin-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .admin-card {
+        background: var(--panel);
+        border: 1px solid var(--bdr);
+        border-radius: var(--radius);
+        overflow: hidden;
+        transition: var(--transition);
+    }
+    .admin-card:hover {
+        border-color: var(--acc);
+        box-shadow: 0 4px 16px rgba(93, 124, 248, 0.1);
+    }
+
+    .admin-card-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 1rem;
+        background: var(--bg);
+        border-bottom: 1px solid var(--bdr);
+    }
+    .admin-card-header i { font-size: 1.2rem; color: var(--acc); }
+    .admin-card-header h3 { margin: 0; font-size: 1rem; font-weight: 600; }
+
+    .admin-card-body { padding: 0.5rem; }
+
+    .admin-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0.75rem 1rem;
+        color: var(--txt2);
+        text-decoration: none;
+        border-radius: var(--radius-sm);
+        transition: var(--transition);
+        font-size: 0.9rem;
+    }
+    .admin-link:hover {
+        background: rgba(93, 124, 248, 0.08);
+        color: var(--acc);
+    }
+    .admin-link i:first-child { width: 20px; text-align: center; font-size: 0.85rem; }
+    .admin-link span { flex: 1; }
+    .admin-link i:last-child { font-size: 0.7rem; color: var(--txt3); }
+    .admin-link:hover i:last-child { color: var(--acc); transform: translateX(2px); }
+
+    @@media (max-width: 768px) {
+        .admin-grid { grid-template-columns: 1fr; }
+        .page-header { flex-direction: column; align-items: flex-start; }
+    }
+</style>

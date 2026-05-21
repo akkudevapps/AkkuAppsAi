@@ -1,0 +1,54 @@
+@{ ViewData["Title"] = "Create Digital Good"; }
+
+<div class="page-container" style="max-width:700px;">
+    <div class="page-header">
+        <div>
+            <h1><i class="fas fa-plus-circle"></i> Create Digital Good</h1>
+            <p>Sell your digital creation for Akku Coins</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Title *</label>
+                        <input type="text" name="title" class="form-input" required placeholder="e.g., Premium Template Pack" />
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <input type="text" name="category" class="form-input" placeholder="e.g., Templates, Graphics" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" class="form-input" rows="4" placeholder="Describe what buyers get..."></textarea>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Price (Coins) *</label>
+                        <input type="number" name="priceInCoins" class="form-input" step="1" min="1" required />
+                    </div>
+                    <div class="form-group" style="display:flex;align-items:flex-end;">
+                        <label class="flex items-center gap-1" style="cursor:pointer;padding-top:0.7rem;">
+                            <input type="checkbox" name="hasCommission" value="true" style="width:18px;height:18px;accent-color:var(--acc);" />
+                            <span>Apply 10% Admin Commission</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Thumbnail URL</label>
+                        <input type="url" name="thumbnailUrl" class="form-input" placeholder="https://example.com/image.jpg" />
+                    </div>
+                    <div class="form-group">
+                        <label>File URL</label>
+                        <input type="url" name="fileUrl" class="form-input" placeholder="https://example.com/file.zip" />
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success btn-block"><i class="fas fa-upload"></i> Create Digital Good</button>
+            </form>
+        </div>
+    </div>
+</div>

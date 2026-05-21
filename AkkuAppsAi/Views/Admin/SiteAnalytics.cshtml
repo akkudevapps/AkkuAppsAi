@@ -1,0 +1,110 @@
+@{
+    ViewData["Title"] = "Site Analytics";
+    var byDateJson = System.Text.Json.JsonSerializer.Serialize(ViewBag.VisitorsByDate);
+    var byCountryJson = System.Text.Json.JsonSerializer.Serialize(ViewBag.VisitorsByCountry);
+    var byTzJson = System.Text.Json.JsonSerializer.Serialize(ViewBag.VisitorsByTimeZone);
+}
+
+<div class="admin-container">
+    <div class="page-header">
+        <h1><i class="fas fa-chart-line"></i> Site Analytics</h1>
+        <p>Visitor tracking and site statistics</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-users"></i></div>
+            <div class="stat-info"><h3>@ViewBag.TotalVisitors</h3><p>Total Unique Visitors</p></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-eye"></i></div>
+            <div class="stat-info"><h3>@ViewBag.TodayVisitors</h3><p>Today's Visitors</p></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-clock"></i></div>
+            <div class="stat-info"><h3>Asia/Kolkata (IST)</h3><p>Time Zone: Coimbatore, India</p></div>
+        </div>
+    </div>
+
+    <div class="chart-section">
+        <h2>Visitors by Date (Last 30 Days)</h2>
+        <div id="dateChart" class="bar-chart"></div>
+    </div>
+
+    <div class="list-grid">
+        <div class="list-card">
+            <h2>By Country</h2>
+            <div id="countryList"></div>
+        </div>
+        <div class="list-card">
+            <h2>By Time Zone</h2>
+            <div id="tzList"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const byDate = @Html.Raw(byDateJson);
+    const byCountry = @Html.Raw(byCountryJson);
+    const byTz = @Html.Raw(byTzJson);
+
+    const maxDate = Math.max(...byDate.map(d => d.count), 1);
+    const dateChart = document.getElementById('dateChart');
+    byDate.forEach(d => {
+        const pct = (d.count / maxDate * 100).toFixed(1);
+        const div = document.createElement('div');
+        div.className = 'bar-wrapper';
+        div.innerHTML = `<div class="bar-value">${d.count}</div>
+            <div class="bar" style="height:${Math.max(pct, 2)}%"></div>
+            <div class="bar-label">${d.date.substring(5,10)}</div>`;
+        dateChart.appendChild(div);
+    });
+
+    function renderList(containerId, data, nameKey, maxCount) {
+        const container = document.getElementById(containerId);
+        maxCount = maxCount || Math.max(...data.map(d => d.count), 1);
+        data.forEach(d => {
+            const pct = (d.count / maxCount * 100).toFixed(1);
+            const div = document.createElement('div');
+            div.className = 'list-item';
+            div.innerHTML = `<span class="name">${d[nameKey]}</span>
+                <span class="count">${d.count}</span>
+                <div class="progress-bar" style="width:100%"><div class="progress-fill" style="width:${pct}%"></div></div>`;
+            container.appendChild(div);
+        });
+    }
+
+    renderList('countryList', byCountry, 'country');
+    renderList('tzList', byTz, 'timeZone');
+</script>
+
+<style>
+    .admin-container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    .page-header { margin-bottom: 2rem; }
+    .page-header h1 { margin: 0 0 0.5rem; }
+    .page-header p { color: var(--txt2); }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .stat-card { background: var(--panel); border: 1px solid var(--bdr); border-radius: 12px; padding: 1.5rem; display: flex; align-items: center; gap: 1rem; transition: all 0.3s; }
+    .stat-card:hover { transform: translateY(-3px); }
+    .stat-icon { font-size: 2rem; width: 50px; text-align: center; color: var(--acc); }
+    .stat-info h3 { font-size: 1.8rem; margin: 0; color: var(--txt); }
+    .stat-info p { margin: 0; color: var(--txt2); font-size: 0.85rem; }
+    .chart-section { background: var(--panel); border: 1px solid var(--bdr); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; }
+    .chart-section h2 { margin-top: 0; margin-bottom: 1rem; font-size: 1.2rem; }
+    .bar-chart { display: flex; align-items: flex-end; gap: 0.4rem; min-height: 200px; padding-top: 1rem; overflow-x: auto; }
+    .bar-wrapper { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .bar { width: 35px; background: linear-gradient(to top, var(--acc), #3b5de7); border-radius: 6px 6px 0 0; min-height: 4px; transition: height 0.5s; }
+    .bar-label { font-size: 0.65rem; color: var(--txt2); margin-top: 0.3rem; }
+    .bar-value { font-size: 0.7rem; color: var(--txt); margin-bottom: 0.2rem; font-weight: 600; }
+    .list-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    .list-card { background: var(--panel); border: 1px solid var(--bdr); border-radius: 12px; padding: 1.5rem; }
+    .list-card h2 { margin-top: 0; margin-bottom: 1rem; font-size: 1.2rem; }
+    .list-item { display: grid; grid-template-columns: 1fr auto; gap: 0.5rem; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--bdr); }
+    .list-item:last-child { border-bottom: none; }
+    .list-item .name { color: var(--txt); font-size: 0.9rem; }
+    .list-item .count { color: var(--acc); font-weight: 600; font-size: 0.9rem; }
+    .progress-bar { grid-column: 1 / -1; height: 4px; background: var(--bdr); border-radius: 2px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--acc); border-radius: 2px; }
+
+    @@media (max-width: 768px) { .list-grid { grid-template-columns: 1fr; } }
+</style>

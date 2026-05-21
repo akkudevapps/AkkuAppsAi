@@ -1,0 +1,297 @@
+@{
+    ViewData["Title"] = "Dashboard";
+    var isAdmin = ViewBag.IsAdmin as bool? ?? false;
+    var userType = ViewBag.UserType as string ?? "AkkuUser";
+    var userRole = ViewBag.UserRole as string ?? "user";
+    var userCoins = ViewBag.UserCoins as decimal? ?? 0;
+}
+
+<div class="page-container">
+    <div class="card mb-3 animate-fade">
+        <div class="card-body flex justify-between items-center flex-wrap gap-2">
+            <div>
+                <h2 style="margin:0;font-size:1.5rem;">Welcome, @ViewBag.UserName!</h2>
+                <p style="color:var(--txt2);margin:0.25rem 0 0;">Your Workspace</p>
+            </div>
+            <span class="badge @(isAdmin ? "badge-danger" : userType == "AkkuProUser" ? "badge-purple" : "badge-primary")" style="font-size:0.85rem;padding:0.4rem 1rem;">
+                @(isAdmin ? "Admin" : userType == "AkkuProUser" ? "Pro User" : "User")
+            </span>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card gold animate-fade stagger-1">
+            <div class="stat-icon"><i class="fas fa-coins"></i></div>
+            <div class="stat-info">
+                <h3>@userCoins.ToString("N0")</h3>
+                <p>Coin Balance</p>
+            </div>
+        </div>
+        <div class="stat-card glow-green animate-fade stagger-2">
+            <div class="stat-icon"><i class="fas fa-store"></i></div>
+            <div class="stat-info">
+                <h3><a href="/Marketplace" style="color:var(--ok);text-decoration:none;">Marketplace</a></h3>
+                <p>Browse & Buy</p>
+            </div>
+        </div>
+        <div class="stat-card glow-blue animate-fade stagger-3">
+            <div class="stat-icon"><i class="fas fa-user"></i></div>
+            <div class="stat-info">
+                <h3><a href="/Profile" style="color:var(--acc);text-decoration:none;">Profile</a></h3>
+                <p>My Account</p>
+            </div>
+        </div>
+        <div class="stat-card glow-orange animate-fade stagger-4">
+            <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
+            <div class="stat-info">
+                <h3><a href="/Coins/Buy" style="color:var(--warn);text-decoration:none;">Buy Coins</a></h3>
+                <p>Via UPI</p>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="mb-2" style="font-size:1.2rem;"><i class="fas fa-robot" style="color:var(--acc)"></i> AI Tools</h3>
+    <div class="grid-3 mb-3">
+        <a href="/Chat" class="tool-card animate-fade stagger-1">
+            <div class="tool-icon"><i class="fas fa-robot"></i></div>
+            <div class="tool-info">
+                <span class="tool-name">AI ChatBot</span>
+                <span class="tool-desc">Multi-model AI assistant</span>
+            </div>
+            <span class="tool-badge free">Free</span>
+        </a>
+        <a href="/Tools/ImageEditor" class="tool-card animate-fade stagger-2">
+            <div class="tool-icon"><i class="fas fa-palette"></i></div>
+            <div class="tool-info">
+                <span class="tool-name">Image Editor</span>
+                <span class="tool-desc">AI image generation</span>
+            </div>
+            <span class="tool-badge cost">2 Coins</span>
+        </a>
+        <a href="/Tools/JsonCreator" class="tool-card animate-fade stagger-3">
+            <div class="tool-icon"><i class="fas fa-code"></i></div>
+            <div class="tool-info">
+                <span class="tool-name">JSON Creator</span>
+                <span class="tool-desc">Build JSON structures</span>
+            </div>
+            <span class="tool-badge free">Free</span>
+        </a>
+        <a href="/Tools/OCR" class="tool-card animate-fade stagger-4">
+            <div class="tool-icon"><i class="fas fa-file-alt"></i></div>
+            <div class="tool-info">
+                <span class="tool-name">OCR Scanner</span>
+                <span class="tool-desc">Extract text from images</span>
+            </div>
+            <span class="tool-badge free">Free</span>
+        </a>
+        <a href="/Tools/PDFReader" class="tool-card animate-fade stagger-5">
+            <div class="tool-icon"><i class="fas fa-file-pdf"></i></div>
+            <div class="tool-info">
+                <span class="tool-name">PDF Reader</span>
+                <span class="tool-desc">Read PDF documents</span>
+            </div>
+            <span class="tool-badge free">Free</span>
+        </a>
+        <a href="/Tools/PythonAutomation" class="tool-card animate-fade stagger-6">
+            <div class="tool-icon"><i class="fab fa-python"></i></div>
+            <div class="tool-info">
+                <span class="tool-name">Python Automation</span>
+                <span class="tool-desc">Run Python scripts</span>
+            </div>
+            <span class="tool-badge cost">5 Coins</span>
+        </a>
+    </div>
+
+    <h3 class="mb-2" style="font-size:1.2rem;"><i class="fas fa-coins" style="color:var(--coin)"></i> Coins & Finance</h3>
+    <div class="grid-3 mb-3">
+        <a href="/Coins/Buy" class="control-item animate-fade" style="border-color:rgba(241,196,15,0.3);">
+            <i class="fas fa-coins" style="color:var(--coin)"></i>
+            <div><span style="font-weight:600;">Buy Coins</span><br /><span style="font-size:0.75rem;color:var(--txt2);">Purchase via UPI</span></div>
+        </a>
+        <a href="/Coins/MyOrders" class="control-item animate-fade">
+            <i class="fas fa-receipt"></i>
+            <div><span style="font-weight:600;">My Orders</span><br /><span style="font-size:0.75rem;color:var(--txt2);">Track purchases</span></div>
+        </a>
+        <a href="/Marketplace/MyPurchases" class="control-item animate-fade">
+            <i class="fas fa-shopping-bag"></i>
+            <div><span style="font-weight:600;">My Purchases</span><br /><span style="font-size:0.75rem;color:var(--txt2);">Digital goods</span></div>
+        </a>
+        <a href="/Marketplace/MyGoods" class="control-item animate-fade">
+            <i class="fas fa-cubes"></i>
+            <div><span style="font-weight:600;">My Goods</span><br /><span style="font-size:0.75rem;color:var(--txt2);">Created products</span></div>
+        </a>
+        <a href="/Marketplace/Create" class="control-item animate-fade">
+            <i class="fas fa-plus-circle" style="color:var(--ok)"></i>
+            <div><span style="font-weight:600;">Create Good</span><br /><span style="font-size:0.75rem;color:var(--txt2);">Sell digital items</span></div>
+        </a>
+        <a href="/Profile" class="control-item animate-fade">
+            <i class="fas fa-history"></i>
+            <div><span style="font-weight:600;">Transactions</span><br /><span style="font-size:0.75rem;color:var(--txt2);">View history</span></div>
+        </a>
+        <a href="/News" class="control-item animate-fade">
+            <i class="fas fa-newspaper"></i>
+            <div><span style="font-weight:600;">News</span><br /><span style="font-size:0.75rem;color:var(--txt2);">Latest updates</span></div>
+        </a>
+    </div>
+
+    <div class="card mb-3 animate-fade" style="border-color:var(--acc);">
+        <div class="card-header" style="background:rgba(93,124,248,0.05);">
+            <h3 style="margin:0;font-size:1rem;color:var(--acc);"><i class="fas fa-key"></i> Function Access & Limits</h3>
+        </div>
+        <div class="card-body" style="padding:0;">
+            <div class="table-wrap" style="border:none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>User</th>
+                            <th>Pro User</th>
+                            <th>Admin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><i class="fas fa-comments" style="color:var(--acc)"></i> AI ChatBot</td>
+                            <td><span class="badge badge-success">Free</span></td>
+                            <td><span class="badge badge-success">Free</span></td>
+                            <td><span class="badge badge-success">Free</span></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-palette" style="color:var(--acc)"></i> Image Editor</td>
+                            <td><span class="badge badge-gold">2 Coins</span></td>
+                            <td><span class="badge badge-gold">2 Coins</span></td>
+                            <td><span class="badge badge-gold">2 Coins</span></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-code" style="color:var(--acc)"></i> JSON Creator</td>
+                            <td><span class="badge badge-success">Free</span></td>
+                            <td><span class="badge badge-success">Free</span></td>
+                            <td><span class="badge badge-success">Free</span></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-file-alt" style="color:var(--acc)"></i> OCR Scanner</td>
+                            <td><span class="badge badge-success">Free</span></td>
+                            <td><span class="badge badge-success">Free</span></td>
+                            <td><span class="badge badge-success">Free</span></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-file-pdf" style="color:var(--acc)"></i> PDF Reader</td>
+                            <td><span class="badge badge-success">Free</span></td>
+                            <td><span class="badge badge-success">Free</span></td>
+                            <td><span class="badge badge-success">Free</span></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fab fa-python" style="color:var(--acc)"></i> Python Automation</td>
+                            <td><span class="badge badge-gold">5 Coins</span></td>
+                            <td><span class="badge badge-gold">5 Coins</span></td>
+                            <td><span class="badge badge-gold">5 Coins</span></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-store" style="color:var(--ok)"></i> Buy Digital Goods</td>
+                            <td><span class="badge badge-success">Yes</span></td>
+                            <td><span class="badge badge-success">Yes</span></td>
+                            <td><span class="badge badge-success">Yes</span></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-plus-circle" style="color:var(--warn)"></i> Create & Sell Goods</td>
+                            <td><span class="badge badge-danger">No</span></td>
+                            <td><span class="badge badge-success">Yes</span></td>
+                            <td><span class="badge badge-success">Yes</span></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-coins" style="color:var(--coin)"></i> Buy Coins (UPI)</td>
+                            <td><span class="badge badge-success">Yes</span></td>
+                            <td><span class="badge badge-success">Yes</span></td>
+                            <td><span class="badge badge-success">Yes</span></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-users-cog" style="color:var(--err)"></i> Admin Panel</td>
+                            <td><span class="badge badge-danger">No</span></td>
+                            <td><span class="badge badge-danger">No</span></td>
+                            <td><span class="badge badge-success">Yes</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    @if (userType != "AkkuProUser" && !isAdmin)
+    {
+        <div class="card animate-fade" style="border-color:var(--purple);background:rgba(155,89,182,0.05);">
+            <div class="card-body flex justify-between items-center flex-wrap gap-2">
+                <div>
+                    <h3 style="margin:0;color:var(--purple);"><i class="fas fa-crown"></i> Upgrade to Pro</h3>
+                    <p style="color:var(--txt2);margin:0.25rem 0 0;">Create and sell digital goods, unlock all features</p>
+                </div>
+                <a href="/Coins/Buy" class="btn btn-primary"><i class="fas fa-arrow-up"></i> Buy Coins to Upgrade</a>
+            </div>
+        </div>
+    }
+
+    @if (isAdmin)
+    {
+        <div class="card animate-fade" style="border-color:var(--err);">
+            <div class="card-header" style="background:rgba(231,76,60,0.05);">
+                <h3 style="margin:0;font-size:1rem;color:var(--err);"><i class="fas fa-shield-alt"></i> Admin Control Center</h3>
+            </div>
+            <div class="card-body">
+                <div class="grid-3">
+                    <a href="/Admin/Dashboard" class="control-item">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <div><span style="font-weight:600;">Control Center</span><br /><span style="font-size:0.75rem;color:var(--txt2);">Monitor all</span></div>
+                    </a>
+                    <a href="/Admin/Users" class="control-item">
+                        <i class="fas fa-users"></i>
+                        <div><span style="font-weight:600;">Users</span><br /><span style="font-size:0.75rem;color:var(--txt2);">Manage users</span></div>
+                    </a>
+                    <a href="/Admin/Coins" class="control-item">
+                        <i class="fas fa-coins"></i>
+                        <div><span style="font-weight:600;">Coin Economy</span><br /><span style="font-size:0.75rem;color:var(--txt2);">Adjust coins</span></div>
+                    </a>
+                    <a href="/Admin/DigitalGoods" class="control-item">
+                        <i class="fas fa-cube"></i>
+                        <div><span style="font-weight:600;">Digital Goods</span><br /><span style="font-size:0.75rem;color:var(--txt2);">Manage goods</span></div>
+                    </a>
+                    <a href="/Admin/SiteAnalytics" class="control-item">
+                        <i class="fas fa-chart-line"></i>
+                        <div><span style="font-weight:600;">Analytics</span><br /><span style="font-size:0.75rem;color:var(--txt2);">Site stats</span></div>
+                    </a>
+                    <a href="/Admin/PurchaseOrders" class="control-item">
+                        <i class="fas fa-credit-card"></i>
+                        <div><span style="font-weight:600;">UPI Orders</span><br /><span style="font-size:0.75rem;color:var(--txt2);">Verify orders</span></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .control-item {
+        display: flex; align-items: center; gap: 12px; padding: 1rem;
+        background: var(--panel); border: 1px solid var(--bdr); border-radius: var(--radius);
+        color: var(--txt); text-decoration: none; transition: var(--transition);
+    }
+    .control-item:hover { border-color: var(--acc); transform: translateY(-2px); box-shadow: var(--shadow); }
+    .control-item.disabled { opacity: 0.5; pointer-events: none; }
+    .control-item i { width: 24px; text-align: center; font-size: 1.1rem; color: var(--acc); }
+
+    .tool-card {
+        display: flex; align-items: center; gap: 12px; padding: 1rem;
+        background: var(--panel); border: 1px solid var(--bdr); border-radius: var(--radius);
+        color: var(--txt); text-decoration: none; transition: var(--transition);
+    }
+    .tool-card:hover { border-color: var(--acc); transform: translateY(-2px); box-shadow: var(--shadow); }
+    .tool-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: var(--bg); border-radius: 8px; }
+    .tool-icon i { font-size: 1.2rem; color: var(--acc); }
+    .tool-info { flex: 1; }
+    .tool-name { display: block; font-weight: 600; font-size: 0.9rem; }
+    .tool-desc { display: block; font-size: 0.75rem; color: var(--txt2); }
+    .tool-badge { font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 4px; }
+    .tool-badge.free { background: rgba(46,204,113,0.15); color: var(--ok); }
+    .tool-badge.cost { background: rgba(241,196,15,0.15); color: var(--coin); }
+
+    table td:first-child { font-weight: 500; }
+    table td { padding: 0.75rem 1rem; }
+</style>

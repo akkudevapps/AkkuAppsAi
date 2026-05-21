@@ -1,0 +1,62 @@
+@{ ViewData["Title"] = "Settings"; }
+
+<div class="page-container">
+    <div class="page-header">
+        <div>
+            <h1><i class="fas fa-cog"></i> Settings</h1>
+            <p>Platform configuration and preferences</p>
+        </div>
+    </div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-header"><h3 style="margin:0;font-size:1rem;"><i class="fas fa-coins" style="color:var(--coin)"></i> Coin Economy</h3></div>
+            <div class="card-body">
+                <div class="flex flex-wrap gap-2">
+                    <div class="setting-item">
+                        <span class="setting-label">DiamondCoin</span>
+                        <span class="setting-value">10,000 Coins</span>
+                    </div>
+                    <div class="setting-item">
+                        <span class="setting-label">GoldCoin</span>
+                        <span class="setting-value">1,000 Coins</span>
+                    </div>
+                    <div class="setting-item">
+                        <span class="setting-label">Gift</span>
+                        <span class="setting-value">100 Coins</span>
+                    </div>
+                    <div class="setting-item">
+                        <span class="setting-label">Ticket</span>
+                        <span class="setting-value">200 Coins</span>
+                    </div>
+                    <div class="setting-item">
+                        <span class="setting-label">Tip</span>
+                        <span class="setting-value">10 Coins</span>
+                    </div>
+                    <div class="setting-item">
+                        <span class="setting-label">Admin Commission</span>
+                        <span class="setting-value">10%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><h3 style="margin:0;font-size:1rem;"><i class="fas fa-info-circle" style="color:var(--acc)"></i> System Info</h3></div>
+            <div class="card-body">
+                <div class="setting-item"><span class="setting-label">Platform</span><span class="setting-value">AkkuAppsAi</span></div>
+                <div class="setting-item"><span class="setting-label">Framework</span><span class="setting-value">.NET 8.0</span></div>
+                <div class="setting-item"><span class="setting-label">Database</span><span class="setting-value">SQL Server</span></div>
+                <div class="setting-item"><span class="setting-label">Auth</span><span class="setting-value">Google OAuth</span></div>
+                <div class="setting-item"><span class="setting-label">Timezone</span><span class="setting-value">IST (UTC+5:30)</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .setting-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--bdr); }
+    .setting-item:last-child { border-bottom: none; }
+    .setting-label { color: var(--txt2); font-size: 0.85rem; }
+    .setting-value { font-weight: 600; font-size: 0.9rem; }
+</style>

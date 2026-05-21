@@ -1,0 +1,47 @@
+@model List<AkkuAppsAi.Models.CoinPurchaseOrder>
+@{ ViewData["Title"] = "My Orders"; }
+
+<div class="page-container">
+    <div class="page-header">
+        <div>
+            <h1><i class="fas fa-receipt"></i> My Coin Orders</h1>
+        </div>
+        <a href="/Coins/Buy" class="btn btn-primary"><i class="fas fa-plus"></i> Buy Coins</a>
+    </div>
+
+    @if (TempData["Success"] != null) { <div class="alert alert-success"><i class="fas fa-check"></i> @TempData["Success"]</div> }
+
+    @if (!Model.Any())
+    {
+        <div class="empty-state">
+            <i class="fas fa-box-open"></i>
+            <h3>No orders yet</h3>
+            <a href="/Coins/Buy" class="btn btn-primary mt-2">Buy Coins</a>
+        </div>
+    }
+    else
+    {
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>Order ID</th><th>Coins</th><th>Amount</th><th>UPI Txn ID</th><th>Status</th><th>Date</th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var o in Model)
+                    {
+                        <tr>
+                            <td><code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:0.75rem;">@o.OrderId[..8]</code></td>
+                            <td class="coin-amount">@o.Coins.ToString("N0")</td>
+                            <td>₹ @o.AmountINR.ToString("N2")</td>
+                            <td>@(o.UpiTransactionId ?? "-")</td>
+                            <td>
+                                <span class="badge @(o.Status == "Approved" ? "badge-success" : o.Status == "Rejected" ? "badge-danger" : "badge-warning")">@o.Status</span>
+                            </td>
+                            <td style="font-size:0.8rem;">@o.CreatedAt.ToString("MMM dd, yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

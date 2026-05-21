@@ -1,0 +1,55 @@
+@model List<AkkuAppsAi.Models.CoinPurchaseOrder>
+@{ ViewData["Title"] = "UPI Orders"; }
+
+<div class="page-container">
+    <div class="page-header">
+        <div>
+            <h1><i class="fas fa-credit-card"></i> UPI Purchase Orders</h1>
+            <p>Verify and approve coin purchase orders</p>
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null) { <div class="alert alert-success"><i class="fas fa-check"></i> @TempData["Success"]</div> }
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr><th>Order ID</th><th>User</th><th>Coins</th><th>Amount</th><th>UPI Txn ID</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                @foreach (var o in Model)
+                {
+                    <tr>
+                        <td><code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:0.8rem;">@o.OrderId[..8]</code></td>
+                        <td style="font-size:0.85rem;">@o.UserId[..8]...</td>
+                        <td class="coin-amount">@o.Coins.ToString("N0")</td>
+                        <td>₹ @o.AmountINR.ToString("N2")</td>
+                        <td>@(o.UpiTransactionId ?? "-")</td>
+                        <td>
+                            <span class="badge @(o.Status == "Approved" ? "badge-success" : o.Status == "Rejected" ? "badge-danger" : "badge-warning")">@o.Status</span>
+                        </td>
+                        <td>
+                            @if (o.Status == "Pending")
+                            {
+                                <div class="flex gap-1">
+                                    <form method="post" asp-action="ApproveOrder">
+                                        <input type="hidden" name="orderId" value="@o.OrderId" />
+                                        <button type="submit" class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
+                                    </form>
+                                    <form method="post" asp-action="RejectOrder">
+                                        <input type="hidden" name="orderId" value="@o.OrderId" />
+                                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                                    </form>
+                                </div>
+                            }
+                            else
+                            {
+                                <span style="color:var(--txt3);font-size:0.8rem;">@(o.ApprovedAt?.ToString("MMM dd"))</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

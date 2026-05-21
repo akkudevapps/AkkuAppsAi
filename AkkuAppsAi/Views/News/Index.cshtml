@@ -1,0 +1,164 @@
+@model List<AkkuAppsAi.Controllers.NewsViewModel>
+@{ ViewData["Title"] = "News & Articles"; }
+
+<div class="page-container">
+    <div class="page-header">
+        <div>
+            <h1><i class="fas fa-newspaper" style="color:var(--acc)"></i> News & Articles</h1>
+            <p>Latest updates from AkkuApps.in</p>
+        </div>
+        <div class="flex gap-1">
+            <span class="badge badge-primary"><i class="fas fa-rss"></i> Live Feed</span>
+            <span class="badge badge-success">@DateTime.Now.ToString("MMM dd, yyyy")</span>
+        </div>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="news-grid">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var item = Model[i];
+                <article class="news-card @(i == 0 ? "featured" : "") animate-fade stagger-@(Math.Min(i + 1, 6))">
+                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                    {
+                        <div class="news-image">
+                            <img src="@item.ImageUrl" alt="@item.Title" loading="lazy" onerror="this.parentElement.style.display='none'">
+                        </div>
+                    }
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-source"><i class="fas fa-globe"></i> @item.Source</span>
+                            @if (!string.IsNullOrEmpty(item.Date))
+                            {
+                                <span class="news-date"><i class="far fa-clock"></i> @item.Date</span>
+                            }
+                        </div>
+                        <h3 class="news-title">
+                            <a href="@item.Link" target="_blank" rel="noopener">@item.Title</a>
+                        </h3>
+                        @if (!string.IsNullOrEmpty(item.Excerpt))
+                        {
+                            <p class="news-excerpt">@item.Excerpt</p>
+                        }
+                        <div class="news-footer">
+                            <a href="@item.Link" target="_blank" rel="noopener" class="btn btn-sm btn-ghost">
+                                Read More <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state animate-fade">
+            <i class="fas fa-newspaper"></i>
+            <h3>No News Available</h3>
+            <p>Check back later for updates from AkkuApps.in</p>
+            <a href="/Dashboard" class="btn btn-primary mt-2">Back to Dashboard</a>
+        </div>
+    }
+</div>
+
+<style>
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .page-header h1 { margin: 0; font-size: 1.8rem; }
+    .page-header p { color: var(--txt2); margin: 0.25rem 0 0; }
+
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .news-card {
+        background: var(--panel);
+        border: 1px solid var(--bdr);
+        border-radius: var(--radius);
+        overflow: hidden;
+        transition: var(--transition);
+    }
+    .news-card:hover {
+        border-color: var(--acc);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(93, 124, 248, 0.15);
+    }
+    .news-card.featured {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-color: var(--acc);
+    }
+
+    .news-image {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        background: var(--bg);
+    }
+    .news-card.featured .news-image { height: 100%; }
+    .news-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    .news-card:hover .news-image img { transform: scale(1.05); }
+
+    .news-content { padding: 1.25rem; }
+    .news-card.featured .news-content { padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; }
+
+    .news-meta {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 0.75rem;
+        font-size: 0.8rem;
+        color: var(--txt2);
+    }
+    .news-source i, .news-date i { margin-right: 4px; color: var(--acc); }
+
+    .news-title {
+        margin: 0 0 0.75rem;
+        font-size: 1.1rem;
+        line-height: 1.4;
+    }
+    .news-card.featured .news-title { font-size: 1.4rem; }
+    .news-title a {
+        color: var(--txt);
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    .news-title a:hover { color: var(--acc); }
+
+    .news-excerpt {
+        color: var(--txt2);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin: 0 0 1rem;
+    }
+
+    .news-footer { display: flex; justify-content: flex-end; }
+
+    .empty-state {
+        text-align: center;
+        padding: 4rem 1rem;
+    }
+    .empty-state i { font-size: 4rem; color: var(--txt3); margin-bottom: 1rem; }
+    .empty-state h3 { margin: 0 0 0.5rem; }
+    .empty-state p { color: var(--txt2); margin: 0 0 1.5rem; }
+
+    @@media (max-width: 768px) {
+        .news-grid { grid-template-columns: 1fr; }
+        .news-card.featured { grid-template-columns: 1fr; }
+        .page-header { flex-direction: column; align-items: flex-start; }
+    }
+</style>
